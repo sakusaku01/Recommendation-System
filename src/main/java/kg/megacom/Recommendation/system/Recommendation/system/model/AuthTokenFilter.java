@@ -3,6 +3,7 @@ package kg.megacom.Recommendation.system.Recommendation.system.model;
 import kg.megacom.Recommendation.system.Recommendation.system.exception.JwtAuthenticationException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,12 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-
+@NoArgsConstructor
 public class AuthTokenFilter extends OncePerRequestFilter {
-    private final JwtUtils utils;
-    public AuthTokenFilter(JwtUtils utils) {
-        this.utils = utils;
-    }
+    @Autowired
+    private  JwtUtils utils;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

@@ -1,16 +1,18 @@
 package kg.megacom.Recommendation.system.Recommendation.system.model.entity;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "tb_music")
 public class Music {
@@ -22,7 +24,6 @@ public class Music {
     String file;
     @Temporal(TemporalType.DATE)
     Date year;
-
     @Temporal(TemporalType.DATE)
     Date addDate;
     @Temporal(TemporalType.DATE)
@@ -31,6 +32,9 @@ public class Music {
     @ManyToOne
     @JoinColumn(name = "album_id")
     Album albumId;
+    boolean isActive;
+    Double duration;
+
 
     
 

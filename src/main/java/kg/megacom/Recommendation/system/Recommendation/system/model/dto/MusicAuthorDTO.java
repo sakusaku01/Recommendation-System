@@ -8,4 +8,5 @@ public class MusicAuthorDTO {
     Long id;
     MusicDTO musicId;
     AuthorDTO authorId;
+    boolean isActive;
 }

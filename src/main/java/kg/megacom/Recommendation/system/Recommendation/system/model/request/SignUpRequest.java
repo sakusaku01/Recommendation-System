@@ -15,6 +15,10 @@ public class SignUpRequest {
     String username;
     String email;
     String password;
+    String gender;
+
+    boolean isActive;
+    int age;
     Set<String> roles;
 
 }

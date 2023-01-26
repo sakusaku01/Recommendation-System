@@ -1,6 +1,7 @@
 package kg.megacom.Recommendation.system.Recommendation.system.services.impl;
 
 import kg.megacom.Recommendation.system.Recommendation.system.mapper.UserEntityMapper;
+import kg.megacom.Recommendation.system.Recommendation.system.model.dto.RoleDTO;
 import kg.megacom.Recommendation.system.Recommendation.system.model.dto.UserEntityDTO;
 import kg.megacom.Recommendation.system.Recommendation.system.model.entity.Role;
 import kg.megacom.Recommendation.system.Recommendation.system.model.entity.UserEntity;
@@ -31,41 +32,41 @@ public class UserEntityServicesImpl implements UserEntityServices {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserEntityDTO save(UserEntityDTO userEntityDTO, int lang) {
-        return null;
+    public UserEntityDTO save(UserEntityDTO dto, int lang) {
+        return UserEntityMapper.INSTANCE.toDto(userRepository.save(UserEntityMapper.INSTANCE.toEntity(dto)));
     }
 
     @Override
     public UserEntityDTO findById(Long id, int lang) {
-        return null;
+        return UserEntityMapper.INSTANCE.toDto(userRepository.findById(id).orElseThrow(()->new RuntimeException("Альбом под таким id не найден")));
     }
 
     @Override
     public List<UserEntityDTO> findAll(int lang) {
-        return null;
+        return UserEntityMapper.INSTANCE.toDtos(userRepository.findAll());
     }
 
     @Override
-    public UserEntityDTO createRegister(UserEntityDTO dto) {
+    public UserEntityDTO createRegister(SignUpRequest request) {
 
-        if (userRepository.existsByName(dto.getName())) {
+        if (userRepository.existsByName(request.getUsername())) {
             throw  new RuntimeException("Error: Username is exist");
         }
 
-        if (userRepository.existsByEmail(dto.getEmail())) {
+        if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Error: Email is exist");
         }
 
         UserEntity user = new UserEntity();
-        user.setName(dto.getName());
-        user.setEmail(dto.getEmail());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setAge(dto.getAge());
-        user.setActive(dto.isActive());
-        user.setGender(dto.getGender());
+        user.setName(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setAge(request.getAge());
+        user.setActive(request.isActive());
+        user.setGender(request.getGender());
 
 
-        Set<String> reqRoles = dto.getRoles();
+        Set<String> reqRoles = request.getRoles();
         Set<Role> roles = new HashSet<>();
 
         if (reqRoles == null) {
@@ -83,11 +84,12 @@ public class UserEntityServicesImpl implements UserEntityServices {
                         roles.add(adminRole);
 
                         break;
-                    default:
+                    default :
                         Role userRole = repository
                                 .findByName(RoleStatus.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error, Role USER is not found"));
                         roles.add(userRole);
+
                 }
             });
         }

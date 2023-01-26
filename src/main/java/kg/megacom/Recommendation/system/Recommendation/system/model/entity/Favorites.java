@@ -1,17 +1,15 @@
 package kg.megacom.Recommendation.system.Recommendation.system.model.entity;
 
 import kg.megacom.Recommendation.system.Recommendation.system.model.enums.LikeStatus;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @Entity
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "tb_favorites")
 public class Favorites {
@@ -33,4 +31,6 @@ public class Favorites {
     @ManyToOne
     @JoinColumn(name = "music_id")
     Music musicId;
+    boolean isActive;
+    String downloadUrl;
 }

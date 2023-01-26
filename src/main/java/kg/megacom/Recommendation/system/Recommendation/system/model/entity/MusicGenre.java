@@ -1,15 +1,13 @@
 package kg.megacom.Recommendation.system.Recommendation.system.model.entity;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.util.Date;
-@Data
+@Getter
+@Setter
 @Entity
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "tb_music_genre")
 public class MusicGenre {
