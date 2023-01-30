@@ -37,6 +37,35 @@ public class MusicController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/filter/name")
+    public ResponseEntity<?> findByName(@RequestParam String name,int lang){
+        try {
+            return ResponseEntity.ok(services.findByName(name,lang));
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/get/filter")
+    public ResponseEntity<?> getFilter(@RequestParam(value = "author", required = false)String author,
+                                       /*@RequestParam(value = "genre", required = false) String genre,*/
+                                       /*@RequestParam(value = "music", required = false) String musicName,*/
+                                       @RequestParam int lang){
+        try {
+            return ResponseEntity.ok(services.getFilter(author,lang));
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/get/authorName")
+    public ResponseEntity<?> getByAuthorName(@RequestParam String author, @RequestParam int lang){
+        try {
+            return ResponseEntity.ok(services.findByAuthorName(author,lang));
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
 
 
     @GetMapping("/get/all")

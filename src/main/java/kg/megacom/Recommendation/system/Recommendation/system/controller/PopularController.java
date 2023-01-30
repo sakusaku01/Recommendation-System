@@ -45,4 +45,12 @@ public class PopularController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.I_AM_A_TEAPOT);
         }
     }
+    @GetMapping("/get/popular")
+    public ResponseEntity<?> getPopular(@RequestParam int lang){
+        try {
+            return ResponseEntity.ok(services.getPopular(lang));
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.I_AM_A_TEAPOT);
+        }
+    }
 }

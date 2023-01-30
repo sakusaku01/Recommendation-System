@@ -8,5 +8,5 @@ import kg.megacom.Recommendation.system.Recommendation.system.model.response.Mus
 import java.util.List;
 
 public interface UserFavoritesServices extends BaseServices<UserFavoritesDTO>{
-    UserFavorites putThreeAuthors(Long id, List<Long> ids, int lang);
+    List<UserFavorites> putThreeAuthors(Long id, List<Long> ids, int lang);
 }

@@ -37,8 +37,6 @@ public class Swagger2Config {
     public static final String UserEntity="Пользователь";
     public static final String UserFavorites="Получить рекомендацию";
 
-
-
     private ApiKey apiKey() {
         return new ApiKey("JWT", "Authorization", "header");
     }

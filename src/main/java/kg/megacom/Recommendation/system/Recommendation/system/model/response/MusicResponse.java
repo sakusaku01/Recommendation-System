@@ -9,10 +9,11 @@ import java.util.Date;
 @Getter
 @Setter
 public class MusicResponse {
-    String musicName;
-    String albumName;
-    String authorName;
+    String music;
+    String album;
+    String author;
     Date addDate;
     Double duration;
-    LikeStatus likeStatus;
+    int orderNum;
+
 }

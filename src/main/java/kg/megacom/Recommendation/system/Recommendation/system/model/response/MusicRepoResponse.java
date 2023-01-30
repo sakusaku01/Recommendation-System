@@ -6,7 +6,8 @@ public interface MusicRepoResponse {
     String getMusic();
     String getAuthor();
     String getAlbum();
-    Date getAddDate();
+    Date getDate();
     Double getDuration();
+
 
 }

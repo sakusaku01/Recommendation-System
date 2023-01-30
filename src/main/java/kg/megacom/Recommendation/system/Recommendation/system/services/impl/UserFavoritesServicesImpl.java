@@ -51,21 +51,21 @@ public class UserFavoritesServicesImpl implements UserFavoritesServices {
     }
 
     @Override
-    public UserFavorites putThreeAuthors(Long id,List<Long> ids, int lang) {
-        UserEntity user = userEntityRepository.findById(id).orElseThrow(()->new RuntimeException("User под таким id не найден"));
-        UserFavorites userFavorites = new UserFavorites();
-        List<Author> authors = new ArrayList<>();
+    public List<UserFavorites> putThreeAuthors(Long id,List<Long> ids, int lang) {
+        UserEntity userEntity = userEntityRepository.findById(id).orElseThrow(()->new RuntimeException("User под таким id не найден"));
+
+//        List<Author> authors = new ArrayList<>();
 
         for (int i = 0; i < ids.size(); i++) {
+            UserFavorites userFavorites = new UserFavorites();
             Author author = authorRepository.findById(ids.get(i).longValue())
                     .orElseThrow(()->new RuntimeException("Author под таким id не найден"));
             userFavorites.setAuthorId(author);
-            userFavorites.setUserEntityId(user);
-            authors.add(author);
+            userFavorites.setUserEntityId(userEntity);
+//            authors.add(author);
             repository.save(userFavorites);
-
         }
-        return userFavorites;
+        return UserFavoritesMapper.INSTANCE.toEntities(findAll(lang));
 //        List<MusicRepoResponse> repoResponses = new ArrayList<>();
 //        for (int i = 0; i < authors.size(); i++) {
 //            repoResponses = musicServices.findResponse(authors.get(i).getName(),lang);

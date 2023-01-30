@@ -2,6 +2,8 @@ package kg.megacom.Recommendation.system.Recommendation.system.services.impl;
 
 import kg.megacom.Recommendation.system.Recommendation.system.mapper.PopularMapper;
 import kg.megacom.Recommendation.system.Recommendation.system.model.dto.PopularDTO;
+import kg.megacom.Recommendation.system.Recommendation.system.model.response.MusicRepoResponse;
+import kg.megacom.Recommendation.system.Recommendation.system.model.response.MusicResponse;
 import kg.megacom.Recommendation.system.Recommendation.system.repository.PopularRepository;
 import kg.megacom.Recommendation.system.Recommendation.system.services.PopularServices;
 import org.springframework.stereotype.Service;
@@ -29,4 +31,11 @@ public class PopularServicesImpl implements PopularServices {
     public List<PopularDTO> findAll(int lang) {
         return PopularMapper.INSTANCE.toDtos(repository.findAll());
     }
+
+    @Override
+    public List<MusicRepoResponse> getPopular(int lang) {
+        List<MusicRepoResponse> musicRepoResponses = repository.findAllByOrderNum();
+        return musicRepoResponses;
+    }
 }
+

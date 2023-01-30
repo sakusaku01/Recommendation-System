@@ -40,16 +40,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-ui.html",
                 "/webjars/**");
     }
-
-//    @Bean
-//    public AuthTokenFilter authenticationJwtTokenFilter(){
-//        return new AuthTokenFilter();
-//    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder managerBuilder) throws Exception {
         managerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -79,6 +75,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected PasswordEncoder passwordEncoder (){
         return new BCryptPasswordEncoder(12);
     }
-
 
 }

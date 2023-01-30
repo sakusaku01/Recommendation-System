@@ -28,12 +28,18 @@ public class Music {
     Date addDate;
     @Temporal(TemporalType.DATE)
     Date editDate;
-
     @ManyToOne
     @JoinColumn(name = "album_id")
     Album albumId;
     boolean isActive;
     Double duration;
+    @JsonIgnore
+    @OneToMany(mappedBy = "authorId")
+    List<MusicAuthor> authorId;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "genreId")
+    List<MusicGenre> genreId;
 
 
     
