@@ -34,12 +34,14 @@ public class Music {
     boolean isActive;
     Double duration;
     @JsonIgnore
+    @JsonManagedReference
     @OneToMany(mappedBy = "authorId")
-    List<MusicAuthor> authorId;
+    Set<MusicAuthor> authors;
 
     @JsonIgnore
+    @JsonManagedReference
     @OneToMany(mappedBy = "genreId")
-    List<MusicGenre> genreId;
+    Set<MusicGenre> genres;
 
 
     

@@ -2,6 +2,7 @@ package kg.megacom.Recommendation.system.Recommendation.system.controller;
 
 import io.swagger.annotations.Api;
 import kg.megacom.Recommendation.system.Recommendation.system.model.dto.FavoritesDTO;
+import kg.megacom.Recommendation.system.Recommendation.system.model.enums.LikeStatus;
 import kg.megacom.Recommendation.system.Recommendation.system.services.FavoritesServices;
 import kg.megacom.Recommendation.system.Recommendation.system.swaggerconfig.Swagger2Config;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,18 @@ public class FavoritesController {
     public ResponseEntity<?> save(@RequestBody FavoritesDTO dto, int lang){
         try {
             return ResponseEntity.ok(services.save(dto,lang));
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.I_AM_A_TEAPOT);
+        }
+    }
+
+    @PostMapping("/create/favorites")
+    public ResponseEntity<?> myFavorites(@RequestParam Long musicId,
+                                         @RequestParam Long userId,
+                                         @RequestParam LikeStatus likeStatus,
+                                         int lang){
+        try {
+            return ResponseEntity.ok(services.myFavorites(musicId,userId,likeStatus,lang));
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.I_AM_A_TEAPOT);
         }

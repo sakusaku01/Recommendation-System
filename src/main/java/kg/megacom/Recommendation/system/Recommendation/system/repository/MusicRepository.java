@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MusicRepository extends JpaRepository<Music,Long> , JpaSpecificationExecutor<Music> {
+public interface MusicRepository extends JpaRepository<Music,Long> {
 
 
     @Query( value = "select m.name as music , a.name as author , al.name as album ," +
@@ -27,16 +27,19 @@ public interface MusicRepository extends JpaRepository<Music,Long> , JpaSpecific
 
     @Query("select m from Music m join Author a where a.name = '1324' ")
     List<Music> findByAuthorName(String name);
+    @Query(value = "select * from tb_music m where m.name=?1",nativeQuery = true)
+    List<Music> findByNameMusic(String musicName);
 
+    @Query(value = "select * from tb_music m join tb_music_author tma on m.id = tma.music_id join tb_author ta on ta.id = tma.autor_id where ta.name=?1",nativeQuery = true)
+    List<Music> findByAuthor(String authorName);
 
-    static Specification<Music> hasAuthor(String author) {
-        return (music, cq, cb) -> cb.equal(music.get("authorId"), author);
-    }
+    @Query(value = "select * from tb_music m join tb_music_genre tmg on m.id = tmg.music_id join tb_genre tg on tg.id = tmg.genre_id where tg.name=?1",nativeQuery = true)
+    List<Music> findByGenre(String genreName);
 
-    static Specification<Music> hasGenre(String genre) {
-        return (music, cq, cb) -> cb.like(music.get("genreId"), "%" + genre + "%");
-    }
-    static Specification<Music> hasName(String musicName) {
-        return (music, cq, cb) -> cb.equal(music.get("name"), musicName);
-    }
+    @Query(value = "select distinct m.* from tb_music m join tb_music_genre tmg on m.id = tmg.music_id " +
+            "join tb_genre tg on tg.id = tmg.genre_id where tg.id=?1",nativeQuery = true)
+    List<Music> findMusicByGenre(Long id);
+
+    @Query(value = "select m.* from tb_music m join tb_favorites tf on m.id = tf.music_id where tf.user_id=?1",nativeQuery = true)
+    List<Music> findByMusic(Long userId);
 }

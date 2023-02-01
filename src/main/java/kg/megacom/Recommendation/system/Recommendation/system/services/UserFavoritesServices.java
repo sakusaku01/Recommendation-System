@@ -6,7 +6,10 @@ import kg.megacom.Recommendation.system.Recommendation.system.model.entity.UserF
 import kg.megacom.Recommendation.system.Recommendation.system.model.response.MusicRepoResponse;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserFavoritesServices extends BaseServices<UserFavoritesDTO>{
     List<UserFavorites> putThreeAuthors(Long id, List<Long> ids, int lang);
+
+    Set<Music> getRecommendation(Long id, int lang);
 }

@@ -38,7 +38,7 @@ public class UserEntityServicesImpl implements UserEntityServices {
 
     @Override
     public UserEntityDTO findById(Long id, int lang) {
-        return UserEntityMapper.INSTANCE.toDto(userRepository.findById(id).orElseThrow(()->new RuntimeException("Альбом под таким id не найден")));
+        return UserEntityMapper.INSTANCE.toDto(userRepository.findById(id).orElseThrow(()->new RuntimeException("User под таким id не найден")));
     }
 
     @Override

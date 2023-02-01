@@ -15,6 +15,5 @@ public interface MusicServices extends BaseServices<MusicDTO>{
 
     List<Music>  findByAuthorName(String name, int lang);
 
-    List<?> getFilter(String author, int lang);
-
+    List<?> getFilter(String author, String music, String genre, int lang);
 }

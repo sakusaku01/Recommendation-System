@@ -33,4 +33,11 @@ public class Favorites {
     Music musicId;
     boolean isActive;
     String downloadUrl;
+
+    @PrePersist
+    protected void prePersist(){
+        this.addDate = new Date();
+        this.editDate = new Date();
+        this.isActive = true;
+    }
 }

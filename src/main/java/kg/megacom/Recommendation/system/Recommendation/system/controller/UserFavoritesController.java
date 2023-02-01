@@ -39,6 +39,16 @@ public class UserFavoritesController {
         }
     }
 
+    @GetMapping("/get/rec/fav")
+    public ResponseEntity<?> getRecommendation(@RequestParam(name = "your id") Long id ,int lang){
+        try {
+            return ResponseEntity.ok(services.getRecommendation(id,lang));
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.I_AM_A_TEAPOT);
+        }
+    }
+
+
     @GetMapping("/get")
     public ResponseEntity<?> findById(@RequestParam Long id,int lang){
         try {

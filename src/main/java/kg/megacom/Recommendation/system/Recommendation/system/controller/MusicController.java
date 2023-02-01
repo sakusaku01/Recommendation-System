@@ -1,7 +1,6 @@
 package kg.megacom.Recommendation.system.Recommendation.system.controller;
 
 import io.swagger.annotations.Api;
-import kg.megacom.Recommendation.system.Recommendation.system.model.dto.AuthorDTO;
 import kg.megacom.Recommendation.system.Recommendation.system.model.dto.MusicDTO;
 import kg.megacom.Recommendation.system.Recommendation.system.services.MusicServices;
 import kg.megacom.Recommendation.system.Recommendation.system.swaggerconfig.Swagger2Config;
@@ -46,13 +45,14 @@ public class MusicController {
         }
     }
 
+
     @GetMapping("/get/filter")
     public ResponseEntity<?> getFilter(@RequestParam(value = "author", required = false)String author,
-                                       /*@RequestParam(value = "genre", required = false) String genre,*/
-                                       /*@RequestParam(value = "music", required = false) String musicName,*/
+                                       @RequestParam(value = "genre", required = false) String genre,
+                                       @RequestParam(value = "music", required = false) String music,
                                        @RequestParam int lang){
         try {
-            return ResponseEntity.ok(services.getFilter(author,lang));
+            return ResponseEntity.ok(services.getFilter(author,music,genre,lang));
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }

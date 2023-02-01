@@ -14,6 +14,5 @@ public class MusicResponse {
     String author;
     Date addDate;
     Double duration;
-    int orderNum;
 
 }

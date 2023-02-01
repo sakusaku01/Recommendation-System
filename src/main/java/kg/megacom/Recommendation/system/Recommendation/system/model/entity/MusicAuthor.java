@@ -1,5 +1,6 @@
 package kg.megacom.Recommendation.system.Recommendation.system.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -15,12 +16,14 @@ public class MusicAuthor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "music_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "music_id", referencedColumnName = "id")
     Music musicId;
 
-    @ManyToOne
-    @JoinColumn(name = "autor_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "autor_id", referencedColumnName = "id")
     Author authorId;
     boolean isActive;
 }
